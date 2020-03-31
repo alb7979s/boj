@@ -21,7 +21,7 @@ def solve(pos, score):  #pos -> 몇 번째 주사위인지
         if nd in [1,2,3] and (len(a[nd]) <= nx):   #1,2,3 크기 넘어 갈 때
             nx = nx - len(a[nd])
             nd = 4
-        if len(a[nd]) <= nx:                #도착, d=1,2,3일 때 넘은건 위에서 이미 처리됨(18 line)
+        if len(a[nd]) <= nx:                #도착, d=1,2,3일 때 넘은건 위에서 이미 처리됨(21 line)
             horse[i] = [0, INF]
             visit[d][x] = 0
             res = max(res, solve(pos+1, score))

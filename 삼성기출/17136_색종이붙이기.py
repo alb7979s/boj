@@ -5,16 +5,12 @@ input = stdin.readline
 
 def check(x, y, pos):
     if colored_paper[pos] <= 0: return 0
-    for i in range(pos+1):
-        nx = x+i
-        for j in range(pos+1):
-            ny = y+j
-            if nx>9 or ny>9 or (not a[nx][ny]): return 0
-    for i in range(pos+1):      #색종이 덮기
-        nx = x+i
-        for j in range(pos+1):
-            ny = y+j
-            a[nx][ny]=0
+    for i in range(x, x+pos+1):
+        for j in range(y, y+pos+1):
+            if i>9 or j>9 or not a[i][j]: return 0
+    for i in range(x, x+pos+1):      #색종이 덮기
+        for j in range(y, y+pos+1):
+            a[i][j]=0
     return 1
 
 def solve(pos, cnt, covered):
@@ -22,15 +18,16 @@ def solve(pos, cnt, covered):
     if covered == one_cnt: return cnt
     if pos == one_cnt or res<=cnt: return res
     x, y = one_list[pos]
-    b=[x[:]for x in a]
     if a[x][y]:
         for i in range(5):
             if check(x,y,i):
                 colored_paper[i]-=1
                 res = min(res, solve(pos+1, cnt+1, covered+(i+1)**2))
                 colored_paper[i]+=1
-                a=[x[:]for x in b]
-                res = min(res, solve(pos+1, cnt, covered))
+                for n in range(x, x+i+1):       
+                    for m in range(y, y+i+1):
+                        a[n][m]=1
+                #res = min(res, solve(pos+1, cnt, covered)) 불필요함, 시간초과 원인
     else: res=min(res, solve(pos+1, cnt, covered))
     return res
 INF=1e9

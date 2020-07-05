@@ -74,6 +74,13 @@ class HuffmanTree:
         if node.key != INF: self.table[node.key] = res
         self._makeHTTable(node.left, res+'0')
         self._makeHTTable(node.right, res+'1')
+    def decoding(self, string):
+        return self._decoding(self.root, string, 0)
+    def _decoding(self, node, string, pos):
+        if node.key != INF: return node.key
+        if pos == len(string): return INF
+        if string[pos] == '0': return self._decoding(node.left, string, pos+1)
+        if string[pos] == '1': return self._decoding(node.right, string, pos+1)
 
 a=input()
 hs=hash()
@@ -106,11 +113,8 @@ ans=''
 temp=''
 for i in range(len(res)):
     temp += res[i]
-    searched = False
-    for j in range(maxLen):
-        if ht.table[j] == temp:
-            searched = True
-            ans += hs.keyList[j]
-    if searched:
+    dt = ht.decoding(temp)
+    if dt!=INF:
+        ans += hs.keyList[dt]
         temp=''
 print(ans)

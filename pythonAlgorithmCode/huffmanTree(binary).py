@@ -109,12 +109,14 @@ pq = []
 for i in range(maxLen):
     heappush(pq, cnt[i])
 ht = HuffmanTree()
+if len(pq)==1:     #주어진 자료에 문자가 하나밖에 없을때 예외처리
+    heappush(pq,[INF, INF])
 while len(pq)>1:   #하나 남을 때까지
     x = heappop(pq)
     y = heappop(pq)
     ht.merge(x, y)
     heappush(pq, [x[0]+y[0], INF])
-ht.levelorder()
+#ht.levelorder()
 ht.makeHTTable()
 #for i in range(maxLen):
 #    print(hs.keyList[i], ht.table[i])

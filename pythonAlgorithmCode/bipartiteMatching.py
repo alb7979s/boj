@@ -1,4 +1,5 @@
 #이분매칭
+#visitCnt 둬가지고 돌아갈때마다 visit초기화 안해줘도 됨
 #https://www.acmicpc.net/problem/1298
 from sys import*
 input=stdin.readline

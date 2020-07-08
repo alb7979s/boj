@@ -2,7 +2,7 @@
 #MAX값 커지면 아래처럼 dict 이용해줘야함
 #양방향 => c[u][v]=value, c[v][u]=value
 #단방향 => c[u][v]=value, c[v][u]=0
-#유량 흐를때 반대로 흐르는거 계산해주려면 단방향이여도 adj이어줘야함
+#유량 흐를때 반대로 흐르는거 계산해주려면 단방향이여도 반대방향 adj이어줘야함
 from sys import *
 from collections import *
 input = stdin.readline

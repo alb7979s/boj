@@ -1,4 +1,4 @@
-#2042 구간합 
+#2042 구간합
 from sys import*
 from math import*
 input=stdin.readline

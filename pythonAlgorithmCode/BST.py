@@ -26,7 +26,7 @@ class BST:
         else:
             return self._find(node.right, key)
     def delete(self, key):
-        self.root, deleted = self._delete(self.root, key) #
+        self.root, deleted = self._delete(self.root, key)
         return deleted
     def _delete(self, node, key):
         if node is None: return node, False

@@ -15,13 +15,14 @@ class SegmentTree:
         m = (s+e)//2
         self.tree[node] = self._init(node*2, s, m) + self._init(node*2+1, m+1, e)
         return self.tree[node]
-    def update(self, node, s, e, idx, diff):
-        if not s<=idx<=e: return
-        self.tree[node] += diff
-        if s!=e:
-            m = (s+e)//2
-            self.update(node*2, s, m, idx, diff)
-            self.update(node*2+1, m+1, e, idx, diff)
+    def update(self, node, s, e, idx, val):
+        if not s<=idx<=e: return self.tree[node]
+        if s==e:
+            self.tree[node] = val
+            return self.tree[node]
+        m = (s+e)//2
+        self.tree[node] = self.update(node*2, s, m, idx, val) + self.update(node*2+1, m+1, e, idx, val)
+        return self.tree[node]
     def cal(self, node, s, e, l, r):
         if l>e or r<s: return 0
         if l<=s and e<=r: return self.tree[node]
@@ -36,8 +37,7 @@ for i in range(m+k):
     x, y, z = map(int,input().split())
     y-=1
     if x==1:
-        st.update(1, 0, n-1, y, z-a[y])
-        a[y] = z
+        st.update(1, 0, n-1, y, z)
     else:
         z-=1
         print(st.cal(1, 0, n-1, y, z))

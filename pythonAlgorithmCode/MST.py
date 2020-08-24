@@ -1,18 +1,30 @@
-from heapq import*
-k,n=map(int,input().split())
-a=list(map(int,input().split()))
-pq=[]
-for i in range(k):
-    heappush(pq, a[i])
-
-prev = -1
-for i in range(n-1):
-    cur = heappop(pq)
-    for j in range(k):
-        temp = cur * a[j]
-        if temp < (1<<31): heappush(pq, temp)
-        else: break
-    prev = cur
-    while prev == pq[0]:
-        heappop(pq)
-print(pq[0])
+#Minimum Spanning Tree (kruskal)
+#https://www.acmicpc.net/problem/1647
+from sys import*
+input = stdin.readline
+setrecursionlimit(10**6)
+def find(u):
+    if parent[u] == u: return u
+    parent[u] = find(parent[u])
+    return parent[u]
+def union(u, v):
+    u = find(u)
+    v = find(v)
+    parent[u] = v
+n,m=map(int,input().split())
+parent=list(range(n+1))
+info=[]
+for i in range(m):
+    a,b,c=map(int,input().split())
+    info.append((a,b,c))
+info.sort(key = lambda x: x[2])
+res=0
+MAX=0
+for a,b,c in info:
+    a = find(a)
+    b = find(b)
+    if a!=b:
+        res+=c
+        MAX = max(MAX, c)
+        union(a,b)
+print(res-MAX)

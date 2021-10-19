@@ -55,14 +55,7 @@ class HuffmanTree:
                 return node
     def _find(self, node, data, key):
         if node is None or (data == node.data and key == node.key): return node
-        if data < node.data: return self._find(node.left, data, key)
-        if data > node.data: return self._find(node.right, data, key)
-    def findKey(self, data, key):
-        return self._findKey(self.root, data, key, '')
-    def _findKey(self, node, data, key, res):
-        if node is None or data == node.data: return res
-        if data < node.data: return self._findKey(node.left, data, key, res+'0')
-        if data > node.data: return self._findKey(node.right, data, key, res+'1')
+        return self._find(node.left, data, key) or self._find(node.right, data, key)
     #잘 만들어졌나 확인
     def levelorder(self):
         self._levelorder(self.root)
